@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+struct Node* head = NULL;
+
+void insertAtBeginning(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    if (head == NULL) {
+        head = newNode;
+        head->next = head;
+        head->prev = head;
+    } else {
+        struct Node* last = head->prev;
+        newNode->next = head;
+        head->prev = newNode;
+        newNode->prev = last;
+        last->next = newNode;
+        head = newNode;
+    }
+}
+
+void display() {
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+    struct Node* temp = head;
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+    printf("\n");
+}
+
+int main() {
+    int choice, value;
+    do {
+        printf("1. Insert at the beginning\n");
+        printf("2. Display\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to insert: ");
+                scanf("%d", &value);
+                insertAtBeginning(value);
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+output:
+Enter your choice: Display
+Invalid choice. Please try again.
