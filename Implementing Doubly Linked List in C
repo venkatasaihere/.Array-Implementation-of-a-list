@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+struct Node* head = NULL;
+
+void insertAtBeginning(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = head;
+    newNode->prev = NULL;
+    if (head != NULL) {
+        head->prev = newNode;
+    }
+    head = newNode;
+}
+
+void display() {
+    struct Node* temp = head;
+    printf("Doubly linked list: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, data;
+
+    while (1) {
+        printf("1. Insert at the beginning\n");
+        printf("2. Display\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                insertAtBeginning(data);
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
+
+output:
+Enter your choice: Exit
+Invalid choice
